@@ -2,7 +2,7 @@
  * Layers to SVG - layers_export.jsx
  * @version 0.1
  *
- * Anton Ball > CLT > UWA
+ * @author Anton Ball
  * Exports all layers to SVG Files
  * I didn't want every layer in the SVG file so it first creates a new document
  * and one by one copies each layer to that new document while exporting it out
