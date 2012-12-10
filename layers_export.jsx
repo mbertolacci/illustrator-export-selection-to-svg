@@ -11,6 +11,7 @@
  * TODO:
  * 1. Although it isn't affecting me at the moment it would be good to center the layer
  *    onto the artboard once it's resized.
+ * 2. More of an interface wouldn't hurt. Prefix option and progress bar of some description.
  *
  */
 
