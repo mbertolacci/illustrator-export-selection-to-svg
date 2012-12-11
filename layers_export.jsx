@@ -1,6 +1,7 @@
 /*
  * Layers to SVG - layers_export.jsx
  * @version 0.1
+ * Improved PageItem selection, which fixed centering
  *
  * @author Anton Ball
  * Exports all layers to SVG Files
@@ -9,9 +10,7 @@
  * as an SVG.
  *
  * TODO:
- * 1. Although it isn't affecting me at the moment it would be good to center the layer
- *    onto the artboard once it's resized.
- * 2. More of an interface wouldn't hurt. Prefix option and progress bar of some description.
+ * 1. More of an interface wouldn't hurt. Prefix option and progress bar of some description.
  *
  */
 
@@ -38,7 +37,7 @@ var stepThroughAndExportLayers = function(layers){
 		if (ignoreHidden && !layer.visible){continue;}
 		copyLayerTo(layer, holderDoc);
 		// Resize the artboard to the object
-		holderDoc.selectObjectsOnActiveArtboard();
+		selectAll(holderDoc);
 		holderDoc.fitArtboardToSelectedArt(0); // Crashes without an index
 		exportAsSVG(validateLayerName(layer.name, '-'), holderDoc);
 		// Remove everything
@@ -54,6 +53,14 @@ copyLayerTo = function(layer, doc){
 	for (var i = 0; i < numPageItems; i++){
 		pageItem = layer.pageItems[i];
 		pageItem.duplicate(holderDoc.activeLayer, ElementPlacement.PLACEATEND);
+	}
+},
+// Selects all PageItems in the doc
+selectAll = function(doc){
+	var pageItems = doc.pageItems,
+		numPageItems = doc.pageItems.length;
+	for (var i = 0; i < numPageItems; i += 1){
+		pageItems[i].selected = true;
 	}
 },
 // Exports the doc to the destination saving it as name
