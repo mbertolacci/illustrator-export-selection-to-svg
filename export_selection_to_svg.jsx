@@ -21,7 +21,16 @@ var saveSelection = function(file){
     if(objects.length > 0) {
         // Create temporary document and copy all selected objects.
         var doc = app.documents.add(DocumentColorSpace.RGB);
+        app.coordinateSystem = CoordinateSystem.ARTBOARDCOORDINATESYSTEM;
         copyObjectsTo(objects, doc);
+        var offset = doc.visibleBounds;
+        var items = doc.pageItems;
+        var count = items.length;
+        for ( var i = 0; i < count; i++ ) {
+            items[i].translate( -(offset[0]), -(offset[1]) );
+        };
+        doc.artboards[0].artboardRect = doc.visibleBounds;
+        app.redraw();
 
         // Resize the artboard to the object
         selectAll(doc);
